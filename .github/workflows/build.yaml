@@ -48,12 +48,7 @@ jobs:
       - name: Test
         continue-on-error: true # proceed if tests fail, the report step will report the failure with more details.
         run: >
-          dotnet test
-            --configuration release
-            --no-build
-            --no-restore
-            --logger "GitHubActions;report-warnings=false"
-            --results-directory "${{ github.workspace }}/TestResults"
+          dotnet test -c release --no-build --no-restore --logger "GitHubActions;report-warnings=false" --results-directory "${{ github.workspace }}/TestResults"
             /p:CollectCoverage=true
             /p:CoverletOutputFormat=opencover
             /p:GITHUB_ACTIONS=false
