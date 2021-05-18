@@ -49,7 +49,7 @@ jobs:
         continue-on-error: true # proceed if tests fail, the report step will report the failure with more details.
         run: |
           dotnet test \
-            --configuration release \
+            -c release \
             --no-build \
             --no-restore \
             --logger "GitHubActions;report-warnings=false" \
