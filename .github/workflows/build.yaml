@@ -42,8 +42,8 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 5.0.x
-      # disable deterministic builds, just for test run. Deterministic builds break coverage for some reason
     - name: Build
+      # disable deterministic builds, just for test run. Deterministic builds break coverage for some reason
       run: dotnet build --configuration release /p:GITHUB_ACTIONS=false
     - name: Test
       continue-on-error: true # proceed if tests fail, the report step will report the failure with more details.
