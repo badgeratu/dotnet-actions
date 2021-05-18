@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+#if NETFRAMEWORK
+using Microsoft.AspNetCore;
+#else
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+#endif
 
 namespace Demo
 {
@@ -13,14 +11,24 @@ namespace Demo
     {
         public static void Main(string[] args)
         {
+#if NETFRAMEWORK
+            CreateWebHostBuilder(args).Build().Run();
+#else
             CreateHostBuilder(args).Build().Run();
+#endif
         }
 
+#if NETFRAMEWORK
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>();
+#else
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+#endif
     }
 }
