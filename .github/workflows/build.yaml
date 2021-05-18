@@ -1,10 +1,11 @@
-name: dapr_dotnet_sdk
+name: dapr_sidekick_dotnet
 
 on: 
   push:
     branches:
       - main
       - release-*
+      - feature-*
     tags:
       - v*
     
