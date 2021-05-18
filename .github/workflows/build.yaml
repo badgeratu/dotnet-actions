@@ -47,7 +47,7 @@ jobs:
         run: dotnet build --configuration release /p:GITHUB_ACTIONS=false
       - name: Test
         continue-on-error: true # proceed if tests fail, the report step will report the failure with more details.
-        run: |
+        run: >
           dotnet test
             --configuration release
             --no-build
