@@ -57,3 +57,5 @@ jobs:
             /p:CollectCoverage=true \
             /p:CoverletOutputFormat=opencover \
             /p:GITHUB_ACTIONS=false
+      - name: Upload test coverage
+        uses: codecov/codecov-action@v1
