@@ -3,11 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net35;net5.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v3.5\Profile\Client</FrameworkPathOverride>
-    <AutomaticallyUseReferenceAssemblyPackages Condition=" '$(TargetFramework)' == 'net35' ">false</AutomaticallyUseReferenceAssemblyPackages>
+    <MicrosoftNETFrameworkReferenceAssembliesLatestPackageVersion>1.0.2</MicrosoftNETFrameworkReferenceAssembliesLatestPackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,12 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\DemoLib\DemoLib.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
-    <PackageReference Include="GitHubActionsTestLogger">
-      <Version>1.2.0</Version>
-    </PackageReference>
   </ItemGroup>
 
 </Project>
