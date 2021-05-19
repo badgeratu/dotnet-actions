@@ -37,15 +37,15 @@ jobs:
         - dotnet-version: 'net35'
           display-name: '.NET Framework 3.5'
           framework: 'net35'
-          logger: '--logger="trx;LogFilePrefix=net35"'
+          logger: '--logger="trx"'
         - dotnet-version: 'net48'
           display-name: '.NET Framework 4.8'
           framework: 'net48'
-          logger: '--logger="GitHubActions;report-warnings=false" --logger="trx;LogFilePrefix=net48"'
+          logger: '--logger="GitHubActions;report-warnings=false" --logger="trx"'
         - dotnet-version: 'netcoreapp31'
           display-name: '.NET Core 3.1'
           framework: 'netcoreapp3.1'
-          logger: '--logger="GitHubActions;report-warnings=false" --logger="trx;LogFilePrefix=netcoreapp31"'
+          logger: '--logger="GitHubActions;report-warnings=false" --logger="trx"'
     steps:
       - uses: actions/checkout@v1
       - name: Parse release version
