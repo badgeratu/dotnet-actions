@@ -10,9 +10,33 @@ namespace DemoTests
         }
 
         [Test]
-        public void Test1()
+        public void TestAll()
         {
             Assert.Pass();
         }
+
+#if NET35
+        [Test]
+        public void Test35()
+        {
+            Assert.Pass();
+        }
+#endif
+
+#if NETFRAMEWORK
+        [Test]
+        public void TestFramework()
+        {
+            Assert.Pass();
+        }
+#endif
+
+#if !NETFRAMEWORK
+        [Test]
+        public void TestCore()
+        {
+            Assert.Pass();
+        }
+#endif
     }
 }

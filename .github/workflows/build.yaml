@@ -1,4 +1,4 @@
-name: dapr_sidekick_dotnet
+name: dotnet_actions_build
 
 on: 
   push:
