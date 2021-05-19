@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
+#if !NETFRAMEWORK
+using Microsoft.Extensions.Hosting;
+#endif
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace Demo
@@ -26,8 +22,12 @@ namespace Demo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+#if NETFRAMEWORK
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+#else
             services.AddControllers();
+#endif
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo", Version = "v1" });
@@ -35,7 +35,11 @@ namespace Demo
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+#if NETFRAMEWORK
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+#else
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+#endif
         {
             if (env.IsDevelopment())
             {
@@ -44,6 +48,9 @@ namespace Demo
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Demo v1"));
             }
 
+#if NETFRAMEWORK
+            app.UseMvc();
+#else
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -54,6 +61,7 @@ namespace Demo
             {
                 endpoints.MapControllers();
             });
+#endif
         }
     }
 }

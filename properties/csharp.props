@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="common.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <LangVersion>8.0</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <WarnOnPackingNonPackableProject>false</WarnOnPackingNonPackableProject>
+    <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
+    <MicrosoftNETFrameworkReferenceAssembliesLatestPackageVersion>1.0.2</MicrosoftNETFrameworkReferenceAssembliesLatestPackageVersion>
+  </PropertyGroup>
+
+  <!-- Cls Compliant -->
+  <PropertyGroup>
+    <AssemblyClsCompliant>true</AssemblyClsCompliant>
+  </PropertyGroup>
+
+  <!-- set DebugType to full -->
+  <PropertyGroup>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
+  <!-- Set AllowUnsafeBlocks to false -->
+  <PropertyGroup>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  
+  <!-- Enable delay signing with Key.snk -->
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)demo.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <Product>Demo</Product>
+  </PropertyGroup>
+
+  <!-- Asset Packages -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="All" />
+  </ItemGroup>
+
+  <!-- Configure properties for MinVer -->
+  <PropertyGroup>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <MinVerDefaultPreReleasePhase>rc</MinVerDefaultPreReleasePhase>
+  </PropertyGroup>
+</Project>
