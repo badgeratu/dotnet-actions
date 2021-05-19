@@ -1,3 +1,4 @@
+using DemoLib;
 using NUnit.Framework;
 
 namespace DemoTests
@@ -12,7 +13,8 @@ namespace DemoTests
         [Test]
         public void TestAll()
         {
-            Assert.Fail();
+            var c = new Class1();
+            Assert.That(c.Ping("TEST"), Is.EqualTo("TEST"));
         }
 
 #if NET35
