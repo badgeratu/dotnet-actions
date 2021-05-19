@@ -30,6 +30,22 @@ jobs:
   test:
     name: Unit Tests
     runs-on: windows-latest
+    strategy:
+      matrix:
+        dotnet-version: ['net35', 'net48', 'netcoreapp31']
+        include:
+        - dotnet-version: 'net35'
+          display-name: '.NET Framework 3.5'
+          framework: 'net35'
+          logger: 'trx;logfilename=unit_tests_net35.trx;report-warnings=false'
+        - dotnet-version: 'net48'
+          display-name: '.NET Framework 4.8'
+          framework: 'net48'
+          logger: 'GitHubActions;report-warnings=false'
+        - dotnet-version: 'netcoreapp31'
+          display-name: '.NET Core 3.1'
+          framework: 'netcoreapp3.1'
+          logger: 'GitHubActions;report-warnings=false'
     steps:
       - uses: actions/checkout@v1
       - name: Parse release version
@@ -37,11 +53,10 @@ jobs:
       - name: Build
         # disable deterministic builds, just for test run. Deterministic builds break coverage for some reason
         run: dotnet build --configuration release /p:GITHUB_ACTIONS=false
-      - name: Test Net48
+      - name: Test
         continue-on-error: true # proceed if tests fail, the report step will report the failure with more details.
-        run: dotnet test -c release --no-build --no-restore -f net48 --logger "GitHubActions;report-warnings=false" -r "${{ github.workspace }}/TestResults" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:GITHUB_ACTIONS=false
-      - name: Test NetCore
-        continue-on-error: true # proceed if tests fail, the report step will report the failure with more details.
-        run: dotnet test -c release --no-build --no-restore -f net5.0 --logger "GitHubActions;report-warnings=false" -r "${{ github.workspace }}/TestResults" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:GITHUB_ACTIONS=false
+        run: dotnet test -c release --no-build --no-restore -f ${{ matrix.dotnet-version }} --logger ${{ matrix.logger }} -r "${{ github.workspace }}/TestResults" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:GITHUB_ACTIONS=false
       - name: Upload test coverage
         uses: codecov/codecov-action@v1
+        with:
+          flags: ${{ matrix.framework }}
