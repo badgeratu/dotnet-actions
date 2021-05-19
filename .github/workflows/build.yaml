@@ -1,4 +1,4 @@
-name: dotnet_actions_build
+name: build
 
 on: 
   push:
