@@ -19,7 +19,7 @@ jobs:
     name: Build
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Parse release version
         run: python ./.github/scripts/get_release_version.py
       - name: Build
@@ -47,7 +47,7 @@ jobs:
           framework: 'netcoreapp3.1'
           logger: '--logger="GitHubActions;report-warnings=false" --logger="trx"'
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Parse release version
         run: python ./.github/scripts/get_release_version.py
       - name: Build
