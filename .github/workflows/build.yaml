@@ -45,8 +45,14 @@ jobs:
       - name: Build
         # disable deterministic builds, just for test run. Deterministic builds break coverage for some reason
         run: dotnet build --configuration release /p:GITHUB_ACTIONS=false
-      - name: Test
+      - name: Test Net35
         continue-on-error: true # proceed if tests fail, the report step will report the failure with more details.
-        run: dotnet test -c release --no-build --no-restore --logger "GitHubActions;report-warnings=false" --results-directory "${{ github.workspace }}/TestResults" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:GITHUB_ACTIONS=false
+        run: dotnet test -c release --no-build --no-restore -f net35 --logger "trx;logfilename=unit_tests_net35.trx;report-warnings=false" -r "${{ github.workspace }}/TestResults" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:GITHUB_ACTIONS=false
+      - name: Test Net48
+        continue-on-error: true # proceed if tests fail, the report step will report the failure with more details.
+        run: dotnet test -c release --no-build --no-restore -f net48 --logger "GitHubActions;report-warnings=false" -r "${{ github.workspace }}/TestResults" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:GITHUB_ACTIONS=false
+      - name: Test NetCore
+        continue-on-error: true # proceed if tests fail, the report step will report the failure with more details.
+        run: dotnet test -c release --no-build --no-restore -f net5.0 --logger "GitHubActions;report-warnings=false" -r "${{ github.workspace }}/TestResults" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:GITHUB_ACTIONS=false
       - name: Upload test coverage
         uses: codecov/codecov-action@v1

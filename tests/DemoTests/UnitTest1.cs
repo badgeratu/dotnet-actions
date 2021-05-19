@@ -12,7 +12,7 @@ namespace DemoTests
         [Test]
         public void TestAll()
         {
-            Assert.Pass();
+            Assert.Fail();
         }
 
 #if NET35
